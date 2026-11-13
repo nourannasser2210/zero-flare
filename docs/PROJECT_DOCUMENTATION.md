@@ -15,7 +15,7 @@ The documentation is based on uploaded src.zip, doc.zip, supporting audit-genera
 
 Source-verified means that an implementation is visible in the uploaded code. Project-reported means that a number or test outcome appears in supplied historical reports. Neither label establishes that the incomplete checkout was run in this session.
 
-The original package manifest, lockfile, root configuration, generated data, model artifacts, acquisition scripts, public assets, and knowledge indexes are absent. Consequently, package versions, current corpus totals, a clean install, successful startup, production build, live API availability, and model-performance reproduction are not certified here.
+The original package manifest, lockfile, root configuration, model artifacts, acquisition scripts, public assets, and knowledge indexes are absent. Generated JSON is included under src/data/generated/, including corpus, investigations, equipment, sources, and per-investigation tables. The bundled JSON contains 25 investigation records and 24 corpus tables; its totals record reports 2,085 rows. Raw CSVs and complete rebuild artifacts are not supplied, so these records cannot be independently reconciled against source bytes here. Consequently, package versions, raw-data integrity, a clean install, successful startup, production build, live API availability, and model-performance reproduction are not certified here.
 
 ## 3. Research problem and intended users
 Combustion experiments differ in fuel, apparatus, scale, pressure, oxygen, ventilation, gravity, and outcome definition. Combining records without these distinctions can produce unsupported conclusions. ZERO FLARE brings metadata, tables, media, calculations, and evidence gaps into one interface.
@@ -41,7 +41,7 @@ Evidence flow: recovered source files → generation scripts in the complete pro
 ## 6. Data contracts and provenance
 src/lib/data/catalog.ts imports investigations, corpus, graph, gaps, findings, atmospheres, media index, sources, and equipment from data/generated/. Investigation records carry accession, source URL, metadata, timestamps, related investigations, and table references.
 
-Table records carry file and investigation identifiers, SHA-256, source, rows, counts, and column summaries. Columns record units, type, fill rate, parse failures, and optional distribution statistics. This establishes a provenance-aware contract; absent artifacts prevent verification of actual populated values and byte hashes.
+Table records carry file and investigation identifiers, SHA-256, source, rows, counts, and column summaries. Columns record units, type, fill rate, parse failures, and optional distribution statistics. The bundled generated JSON populates these contracts. It permits inspection of stored values, but absent raw files prevent independent verification of their original byte hashes and complete regeneration.
 
 NASA Physical Sciences Informatics supplies the main evidence context. NASA NTRS provides literature search and NASA Images provides media search. External results are research leads and are not automatically ingested experimental measurements.
 
@@ -68,7 +68,7 @@ Facility analysis considers atmosphere, materials, ignition, confinement, ventil
 Illustrative arithmetic: oxygen partial pressure equals mole fraction times total pressure. At an illustrative oxygen fraction of 0.21 and pressure of 101.3 kPa, the result is 21.273 kPa. This is explanatory arithmetic, not a retrieved NASA observation or a safety threshold.
 
 ## 9. Model registry and domain boundaries
-The FLEX implementation imports coefficients and scaling values from models/flex-extinction/v2/model_card.json. That artifact is missing. Source-visible guards reject gravity above 0.02 g, unsupported fuels, oxygen outside 0.15–0.70, pressure outside 400–1150 mmHg, and initial droplet diameter outside 1–5 mm. Supported fuels are Methanol and Heptane. Optional inputs include helium and carbon-dioxide fractions.
+The FLEX implementation imports coefficients and scaling values from models/flex-extinction/v2/model_card.json. That model artifact is missing. Source-visible guards reject gravity above 0.02 g, unsupported fuels, oxygen outside 0.15–0.70, pressure outside 400–1150 mmHg, and initial droplet diameter outside 1–5 mm. Supported fuels are Methanol and Heptane. Optional inputs include helium and carbon-dioxide fractions.
 
 The output is explicitly an uncalibrated relative extinction score, not a probability of habitat safety. The supplied model report records grouped AUC 0.882 versus an oxygen-only baseline of 0.818, with 274 raw and 262 cleaned rows. Those are historical project-reported values requiring raw data, cleaning scripts, splits, and the model card for reproduction.
 
@@ -93,7 +93,7 @@ Example copilot body: {"messages":[{"role":"user","content":"Compare FLEX eviden
 Process-local configuration declares copilot 10/minute, ingestion 6/minute, external search 20/minute, and the selftest category 5/minute. Enforcement is route-specific; not every method is necessarily throttled. Inspected throttled paths return HTTP 429 and Retry-After. A distributed deployment requires coordinated enforcement and trusted proxy handling.
 
 ## 12. Setup and release verification
-Restore the original manifest, lockfile, root configuration, generated JSON, models, public assets, knowledge, and required scripts. Use the Node version and package manager declared by the complete project. Confirm actual scripts before using conventional npm run dev/build/start commands; their existence is not asserted for this upload.
+Restore the original manifest, lockfile, root configuration, models, public assets, knowledge, raw source files, and required scripts. Generated JSON is already bundled under src/data/generated/. Use the Node version and package manager declared by the complete project. Confirm actual scripts before using conventional npm run dev/build/start commands; their existence is not asserted for this upload.
 
 Configure provider support on the server and persistent ingestion storage. Never commit credentials or .env. Do not invent replacement datasets or a dependency manifest to hide missing artifacts.
 
@@ -108,7 +108,7 @@ Source-level protections include selected request checks, bounded tool execution
 
 Before public operational use, establish appropriate authentication and authorization, durable storage, backups, coordinated rate limiting, trusted proxy configuration, and request limits before buffering. Evaluate retrieved-document prompt injection, grounding, failed tool arguments, citation quality, and abstention with the actual provider.
 
-Scientific priorities are to restore and verify manifests, recompute model metrics, reconcile corpus totals, retain negative results, and test applicability boundaries. Presentation priorities are accurate model-fidelity labels, per-asset provenance, and AI-assistance disclosure. Schematic models must not be presented as simulations.
+Scientific priorities are to restore and verify manifests, recompute model metrics, reconcile raw-data provenance, retain negative results, and test applicability boundaries. Presentation priorities are accurate model-fidelity labels, per-asset provenance, and AI-assistance disclosure. Schematic models must not be presented as simulations.
 
 ## 14. Submission support and attribution
 The supplied Space Apps guide describes English project content, a demo video of up to 30 seconds or a deck of up to seven slides, and specific NASA-resource attribution. These are summaries of the supplied guide, not an independent check of the current event website.

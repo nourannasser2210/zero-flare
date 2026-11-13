@@ -2,7 +2,7 @@
 
 Research decision support for exploring NASA microgravity combustion evidence, comparing investigations, and working with **CIR-1**, a tool-grounded research copilot.
 
-> Source-and-documentation snapshot. The original runtime configuration, generated datasets, model artifacts, and public assets still need to be restored before the application can run. This is not a certified spacecraft fire-protection system.
+> Source-and-documentation snapshot. The original runtime configuration, model artifacts, raw source files, and public assets still need to be restored before the application can run. This is not a certified spacecraft fire-protection system.
 
 ![Mission dashboard — supplied project screenshot](docs/screenshots/01-mission-1440.png)
 
@@ -65,7 +65,7 @@ This repository contains the source and supporting materials uploaded by the own
 Restore these original files from the complete project:
 
 1. `package.json`, the authoritative lockfile, and root Next.js / TypeScript / styling configuration.
-2. `data/generated/*.json`, raw experimental data, and manifests.
+2. Original raw experimental data and acquisition/manifests needed to reproduce and hash-verify the bundled JSON. Generated artifacts, including corpus and investigation metadata, are already included under `src/data/generated/`.
 3. `models/flex-extinction/v2/model_card.json` and other referenced model artifacts.
 4. Required `public/` assets and `knowledge/` indexes.
 5. Acquisition, generation, and model-evaluation scripts.
